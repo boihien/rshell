@@ -6,16 +6,16 @@ Boi-Hien Huang, 862012798
 
 Joshua Ortega, 862062659
 
-## Introduction
+# Introduction
 
 
-## Diagram
+# Diagram
 
 
-#### Classes
+# Classes
 
 
-##### Prototype/Research
+# Prototype/Research
 
 
-###### Development and Testing Roadmap
+# Development and Testing Roadmap
