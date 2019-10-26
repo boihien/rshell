@@ -20,14 +20,14 @@ The commands can be seperated by ```&&```, ```||```, and ```;``` where the comma
 ```
 
 # Diagram
-
+Format: ![Alt Text](https://github.com/cs100/assignment-memoryleak/blob/master/images/download.png)
 
 # Classes
-Base Class - 
+Base Class - The base class will include default constructor Base(){}; and pure virtual function evaluate(); This will act as the main class where the command class and the connector will inherit from.  
 
-Command Class - 
+Command Class - The command class will include a function that allows various commands to execute. The list of commands will be in the commandNames vector. 
 
-Connector Class - 
+Connector Class - The connector class will include the specific connector's constructor. For example, the AND class will contain the And(Base*, Base*){} constructor along with a function that evaluates the connector's task. 
 
 
 # Prototype/Research
