@@ -23,6 +23,11 @@ The commands can be seperated by ```&&```, ```||```, and ```;``` where the comma
 
 
 # Classes
+Base Class - 
+
+Command Class - 
+
+Connector Class - 
 
 
 # Prototype/Research
