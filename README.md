@@ -9,7 +9,7 @@ Joshua Ortega, 862062659
 ## Introduction
 
 
-### Diagram
+## Diagram
 
 
 #### Classes
