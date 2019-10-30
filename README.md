@@ -22,7 +22,7 @@ We will be using the composite pattern where there is a base class, a composite 
 
 # Diagram
 Composite Pattern
-Format: ![Alt Text](https://github.com/cs100/assignment-memoryleak/blob/master/images/download.png)
+Format: ![Alt Text](https://github.com/cs100/assignment-memoryleak/blob/master/images/CS100.PNG)
 
 # Classes
 Base Class - The base class will include default constructor Base(){}; and pure virtual function evaluate(); This will act as the main class where the command class and the connector will inherit from.  
