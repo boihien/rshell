@@ -6,5 +6,6 @@ int parseUserInput(string input) {
 			++parsedInput;
 		}
 	}
+	++parsedInput;
 	return parsedInput;
 }
