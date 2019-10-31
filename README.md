@@ -36,3 +36,7 @@ Connector Class - The connector class will include the specific connector's cons
 
 
 # Development and Testing Roadmap
+1. Abstract Base
+2. Commands
+3. Connectors
+4. AND(&&), OR(||), ;
