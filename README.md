@@ -34,7 +34,14 @@ Connector Class - The connector class will include the specific connector's cons
 
 # Prototype/Research
 
-We researched the various commands for parsing a user input, such as getline() and cin. We decided to use the getline() function since we believe the getline() will produce the least amount of bugs. We also created a test input function that counts the number of elements in a command by counting the spaces.  
+**Notes**
+Fork() - a function that generates a duplicate of a process by creating two of the same process of the program. Typically, these processes are called "parent" and "child"
+
+execvp() - when this is executed, the file in first argument will load into caller's address space and over-write the program. The second argument will be what the program executes. The program in the first argument will be deleted and replaced by the program in the second argument. This will return negative if it fails. 
+
+waitpid() - a system call that will suspend calling a process unless a *pid* argument in a child class changes its state. 
+
+We researched the various commands for parsing a user input, such as getline() and cin. We decided to use the getline() function since we believe the getline() will produce the least amount of bugs. We also created a test input function that counts the number of elements in a command by counting the spaces. 
 
 
 # Development and Testing Roadmap
