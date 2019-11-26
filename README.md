@@ -4,7 +4,7 @@ Fall Quarter 2019
 
 Boi-Hien Huang, 862012798
 
-Joshua Ortega, 862062659
+Raajitha Rajkumar, 862015848
 
 # Introduction
 The goal of our project is to develop a command shell that
@@ -22,7 +22,7 @@ We will be using the composite pattern where there is a base class, a composite 
 
 # Diagram
 Composite Pattern
-Format: ![Alt Text](https://github.com/cs100/assignment-memoryleak/blob/master/images/CS100.PNG)
+Format: ![Alt Text](https://github.com/cs100/assigment2-rshell/blob/master/images/cs100.PNG)
 
 # Classes
 Base Class - The base class will include default constructor Base(){}; and pure virtual function evaluate(); This will act as the main class where the command class and the connector will inherit from. The evaluate function will be set to 0 in this base class. 
@@ -44,9 +44,54 @@ waitpid() - a system call that will suspend calling a process unless a *pid* arg
 
 We researched the various commands for parsing a user input, such as getline() and cin. We decided to use the getline() function since we believe the getline() will produce the least amount of bugs. We also created a test input function that counts the number of elements in a command by counting the spaces. 
 
+Example of fork(): This will return a pid that is different from the parent 
+```
+int pid;
+pid = fork();
+```
+Example of execvp(): This will replace the address space at the current with the new and execute the command. 
+```
+char* arg[];
+execvp(arg[0], arg);
+```
+Example of waitpid(): Depending on the value of pid, this function waits for child processes if the value is -1
+```
+pid_t waitpid(pid_t, int *status, int options);
+```
+Example of using fork(), execvp(), and waitpid():
+```
+pid_t pid = fork();
+
+if(pid == 0){
+ //failed
+}
+else if (pid > 0){
+ int status;
+  waitpid(pid, &status, 0);
+}
+else{
+ execvp(//arguments);
+ exit();
+}
+```
+
 
 # Development and Testing Roadmap
-1. Abstract Base
-2. Commands
-3. Connectors
-4. AND(&&), OR(||), ;
+1. Parsing: First, we need to develop a function to take in input which will be done by Raajitha. She will run tests for it as well to make sure comments are avoided and the exit function works. 
+
+[Parseing Issue](https://github.com/cs100/assigment2-rshell/issues/1)
+[Integration Tests Issue](https://github.com/cs100/assigment2-rshell/issues/2)
+
+2. Abstract Base: The base class should be developed in order to develop the other classes. This will be a simple default for evaluate() which will be done by Boi-Hien. He will test to make sure it compiles and connects to the main succesfully.
+
+[Base Class Issue](https://github.com/cs100/assigment2-rshell/issues/3) 
+
+3. Command: This class can be developed next by Boi-Hien in order to see if the commands are executed properly. He will use waitpid(), execvp() and fork(). He will also do integration tests to see if the commands work with the connectors.
+
+[Command Class Issue](https://github.com/cs100/assigment2-rshell/issues/4)
+[Command Tests Issue](https://github.com/cs100/assigment2-rshell/issues/5)
+ 
+4. Connector: This class can developed by Raajitha in order to make sure the connectors are being processed. We will need to develop an AND, OR, and SEMI-COLON class under this class to execute each connector. We will also do tests on it to make sure it compiles and interacts properly with the commands. 
+
+[Connector Class Issue](https://github.com/cs100/assigment2-rshell/issues/6)
+[Connector Tests Issue](https://github.com/cs100/assigment2-rshell/issues/7) 
