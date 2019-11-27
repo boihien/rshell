@@ -10,4 +10,11 @@ TEST(PathFinder, testsPath){
 	EXPECT_EQ(c->filePath(c->argm[2], flag2), (false));
 
 }
+
+TEST(Symbol, testsSymbol){
+	string symbol;
+	Command* c = new Command(symbol);
+	char fflag = 'f';
+	EXPECT_EQ(c->filePath(c->argm[2], fflag), (false));
+}
 #endif

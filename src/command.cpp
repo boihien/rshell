@@ -61,7 +61,7 @@ void Command::evaluate(){
     }
     char *inputarr = parse(input);
     char *token = strtok(inputarr, " ");
-    cout << "command is: ";
+    //cout << "command is: ";
     int w = 0;
     while (token != NULL){
         cout << token << " ";
@@ -69,12 +69,12 @@ void Command::evaluate(){
         token = strtok(NULL, " ");
         w++;
     }
-    cout << endl;
+    /*cout << endl;
     cout << "command array contains: " << endl;
     for(int y = 0; y < w; y++){
         cout << "[" << y << "]" << " " << command[y] << endl;
     }
-    cout << endl;
+    cout << endl;*/
     
     int status;
     pid_t pid = -1;
