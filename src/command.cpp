@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <sys/stat.h>
 
 Command::Command(string input){
 	in = input;
@@ -75,38 +76,97 @@ void Command::evaluate(){
     }
     cout << endl;
     
+    int status;
     pid_t pid = -1;
     pid = fork();
     if(pid == 0){
         comm = command[0];
-        if(execvp(command[0], command) == -1){
-            perror("execvp failed");
-            cout << "false" << endl;
-            success = false;
-            return;        
-        }
+        execvp(command[0], command);
+	int errorC = errno;
+    	cout << comm << ":command is invalid" << endl;
+    	exit(errorC);
+    	exit(EXIT_SUCCESS);
     }
-    else if (pid < 0){
-        perror("fork failed");
-        cout << "false" << endl;
-     
-        success = false;
-        return;
-        
+    else if(pid > 0){
+	if((pid = wait(&status)) == -1){
+		perror("wait error");
+	}
+	else{
+		//worked
+		if((WIFEXITED(status)) && (WEXITSTATUS(status) == 0)){
+			success = true;
+		}
+		else{
+			success = false;
+		} 
+	}
     }
     else{
-	int status;
-       if(waitpid(pid, &status, 0) == -1){
-            perror("wait failed");
-           cout << "false" << endl;
-           exit(0);
-           return;
-            
-        }
-    }
+	perror("fork failed");
+	cout << "Fork() did not run" << endl;
+	exit(EXIT_FAILURE);
+    }  
+}
 
-    success = true;
-    cout << "true" << endl;
-    return;  
+bool Command::filePath(const char* path, char flg){
+	struct stat m;//creates stat m, pathname, and flag
+	const char* pathname = path;
+	char flag = flg;
+	
+	stat(pathname, &m);//stats the file that is pointed to, fills buff
+	string t = "true";
+	string f = "false";
+	//check if the file/dir exists
+	if(flag == 'e'){
+		//S_ISREG = is it a regular fle
+		//S_ISDIR = directory?
+		//using st_mode field 
+		if(S_ISREG(m.st_mode) || S_ISDIR(m.st_mode)){
+			cout << "(True)" << endl;
+			return true;
+		}
+		else{
+			cout << "(False)" << endl;
+			return false;
+		}
+	}
+	//check if the file/dir exists and is a regular file
+	else if(flag =='f'){
+		if(S_ISREG(m.st_mode) || S_ISDIR(m.st_mode)){
+			if(S_ISREG(m.st_mode)){
+				cout << "(True)" << endl;
+				return true;
+			}
+			else{
+				cout << "(False)" << endl;
+				return false;
+			}
+		}
+		else{
+			cout << "(False)" << endl;
+			return false;
+		}	
+	}
+	//check id the file/dir exists and is a dir
+	else if(flag == 'd'){
+		if(S_ISREG(m.st_mode) || S_ISDIR(m.st_mode)){
+			if(S_ISDIR(m.st_mode)){
+				cout << "(True)" << endl;
+				return true;
+			}
+			else{
+				cout << "(False)" << endl;
+				return false;
+			}
+		}
+		else{
+			cout << "(False)" << endl;
+			return false;
+		}
+	}
+	else{
+		cout << "use -e functionaliy" << endl;
+		return false;
+	}
 }
 #endif

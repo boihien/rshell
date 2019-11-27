@@ -14,6 +14,8 @@ class Command: public Base{
         char * parse(string input);
         void evaluate();
 	string comm;
+	char* argm[1024];
+	bool filePath(const char* path, char flag);
 };
 
 #endif

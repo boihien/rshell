@@ -16,9 +16,10 @@ int main(){
         if(input == "exit"){
             exit(0);
         }
-	Command *arg = new Command(input);
-        arg->evaluate();
-        
+	Command *c = new Command(input);
+        c->evaluate();
+	char flag2 = 'e';
+	c->filePath(c->argm[2], flag2);
         
     }
     
