@@ -240,6 +240,7 @@ src/command.o: src/command.cpp.o
 
 # target to build an object file
 src/command.cpp.o:
+	$(MAKE) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/command.cpp.o
 	$(MAKE) -f CMakeFiles/rshell.dir/build.make CMakeFiles/rshell.dir/src/command.cpp.o
 .PHONY : src/command.cpp.o
 
@@ -249,6 +250,7 @@ src/command.i: src/command.cpp.i
 
 # target to preprocess a source file
 src/command.cpp.i:
+	$(MAKE) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/command.cpp.i
 	$(MAKE) -f CMakeFiles/rshell.dir/build.make CMakeFiles/rshell.dir/src/command.cpp.i
 .PHONY : src/command.cpp.i
 
@@ -258,6 +260,7 @@ src/command.s: src/command.cpp.s
 
 # target to generate assembly for a file
 src/command.cpp.s:
+	$(MAKE) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/command.cpp.s
 	$(MAKE) -f CMakeFiles/rshell.dir/build.make CMakeFiles/rshell.dir/src/command.cpp.s
 .PHONY : src/command.cpp.s
 
