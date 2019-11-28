@@ -18,6 +18,13 @@ The commands can be seperated by ```&&```, ```||```, and ```;``` where the comma
 || - the first one failed
 ; - is always executed 
 ```
+Ther user should be able to use the test command and run -e (to check if file/directory exists) -f ( to check if it exists and is regular) and -d (to check if it exists and is a directory).
+```
+The test command should also work symbollically with brackets [   ] and return true and false for commands.
+```
+Additionally, there should be precedence in commands with () when executing with the connectors.
+```
+
 We will be using the composite pattern where there is a base class, a composite class, and a leaf class. The composite class will consist of the various commands and the leaf class will contain the characters that connect the commands together. 
 
 # Diagram
@@ -87,6 +94,7 @@ else{
 [Base Class Issue](https://github.com/cs100/assigment2-rshell/issues/3) 
 
 3. Command: This class can be developed next by Boi-Hien in order to see if the commands are executed properly. He will use waitpid(), execvp() and fork(). He will also do integration tests to see if the commands work with the connectors.
+Additionally, in the command class, we have to account for precedence and the path files. We have to test for that as well. 
 
 [Command Class Issue](https://github.com/cs100/assigment2-rshell/issues/4)
 [Command Tests Issue](https://github.com/cs100/assigment2-rshell/issues/5)
