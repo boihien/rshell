@@ -64,7 +64,7 @@ void Command::evaluate(){
     //cout << "command is: ";
     int w = 0;
     while (token != NULL){
-        cout << token << " ";
+        //cout << token << " ";
         command[w] = token;
         token = strtok(NULL, " ");
         w++;

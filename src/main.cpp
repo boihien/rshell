@@ -18,8 +18,10 @@ int main(){
         }
 	Command *c = new Command(input);
         c->evaluate();
-	char flag2 = 'e';
-	c->filePath(c->argm[2], flag2);
+	//if(input == "test"){
+		char flag2 = 'e';
+		c->filePath(c->argm[2], flag2);
+	//}
         
     }
     
