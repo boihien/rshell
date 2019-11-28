@@ -17,4 +17,10 @@ TEST(Symbol, testsSymbol){
 	char fflag = 'f';
 	EXPECT_EQ(c->filePath(c->argm[2], fflag), (false));
 }
+TEST(SymbolD, testsSymbolD){
+	string symbolD;
+	Command* c = new Command(symbolD);
+	char fflag = 'd';
+	EXPECT_EQ(c->filePath(c->argm[2], fflag), (false));
+}
 #endif
