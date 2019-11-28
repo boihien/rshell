@@ -22,12 +22,27 @@ We will be using the composite pattern where there is a base class, a composite 
 
 # Diagram
 Composite Pattern
-Format: ![Alt Text](https://github.com/cs100/assigment2-rshell/blob/master/images/cs100.PNG)
+Format: ![Alt Text](https://github.com/cs100/assignment-memoryleak/blob/master/images/cs100.PNG.png)
 
 # Classes
 Base Class - The base class will include default constructor Base(){}; and pure virtual function evaluate(); This will act as the main class where the command class and the connector will inherit from. The evaluate function will be set to 0 in this base class. 
 
-Command Class - The command class will include a function that allows various commands to execute. The list of commands will be in the commandNames vector. The collection in the command class will inherit from the base class. It's child leaf is a exit function where if the user types in the word "exit", the program will close down.
+Command Class - The command class will include a function that allows various commands to execute. The list of commands will be in the commandNames vector. The collection in the command class will inherit from the base class. It's child leaf is a exit function where if the user types in the word "exit", the program will close down. The command class will have the "test" and its symbolic equivalent [ ]. It will follow with a flag where
+```
+-e checks if the file/directory exists
+-f checks if the file/directory exists and is a regular file
+-d checks if the file/directory exists and is a directory
+```
+If the test works, it will print out a "(true)" statement and a "(false)" statement if it did not work. 
+Additionally, the command class will contain a parenthesis operator that sets a precedence when typing in the command. For example, the command
+```
+$ (echo A && echo B) || (echo C && echo D)
+```
+will print
+```
+A
+B
+```
 
 Connector Class - The connector class will include the specific connector's constructor. For example, the AND class will contain the And(Base*, Base*){} constructor along with a function that evaluates the connector's task. It will contain private variables like Base* left and Base* right so that the tree can identify what the commands on the left and right of the connector are. The child classes for the connector are the AND, OR, and SemiColon classes. If the user enters && with another command, the second command will execute only if the first one was successfull. If the user enters || along with another command, the second command will execute even if the first one failed. Finally, if the character ';' is typed after a command, the command will always execute. 
 
