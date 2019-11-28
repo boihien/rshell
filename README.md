@@ -18,12 +18,12 @@ The commands can be seperated by ```&&```, ```||```, and ```;``` where the comma
 || - the first one failed
 ; - is always executed 
 ```
-Ther user should be able to use the test command and run -e (to check if file/directory exists) -f ( to check if it exists and is regular) and -d (to check if it exists and is a directory).
-```
+The user should be able to use the test command and run -e (to check if file/directory exists) -f ( to check if it exists and is regular) and -d (to check if it exists and is a directory).
+
 The test command should also work symbollically with brackets [   ] and return true and false for commands.
-```
+
 Additionally, there should be precedence in commands with () when executing with the connectors.
-```
+
 
 We will be using the composite pattern where there is a base class, a composite class, and a leaf class. The composite class will consist of the various commands and the leaf class will contain the characters that connect the commands together. 
 
