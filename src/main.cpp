@@ -22,6 +22,9 @@ int main(){
 		char flag2 = 'e';
 		c->filePath(c->argm[2], flag2);
 	//}
+	
+	Pipe* p = new Pipe(input, input);
+	//p->evaluate();
         
     }
     

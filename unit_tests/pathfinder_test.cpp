@@ -2,25 +2,15 @@
 #define __PATHFINDER_TEST_CPP
 #include "gtest/gtest.h"
 #include "../src/command.h"
-
-TEST(PathFinder, testsPath){
-	string input;
-	Command* c = new Command(input);
-	char flag2 = 'e';
-	EXPECT_EQ(c->filePath(c->argm[2], flag2), (false));
-
+#include <iostream>
+TEST(PipeTest, testsPipe){
+	string input1 = "echo hello world";
+	string input2 = "bin/memoryleak";
+	Pipe* p = new Pipe(input1, input2);
+	p->evaluate();
+	cout << "reached end pipe"<< endl;
+	//cout << p->evaluate();
+	//EXPECT_EQ(2,2);
 }
 
-TEST(Symbol, testsSymbol){
-	string symbol;
-	Command* c = new Command(symbol);
-	char fflag = 'f';
-	EXPECT_EQ(c->filePath(c->argm[2], fflag), (false));
-}
-TEST(SymbolD, testsSymbolD){
-	string symbolD;
-	Command* c = new Command(symbolD);
-	char fflag = 'd';
-	EXPECT_EQ(c->filePath(c->argm[2], fflag), (false));
-}
 #endif

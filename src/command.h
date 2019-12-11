@@ -17,5 +17,16 @@ class Command: public Base{
 	char* argm[1024];
 	bool filePath(const char* path, char flag);
 };
+class Pipe: public Base{
+	protected:
+		string l;
+		string r;
+		char* argmL[1024];
+		char* argmR[1024];
+	public:
+		Pipe();
+		Pipe(string left, string right);
+		void evaluate();
+};
 
 #endif

@@ -1,4 +1,5 @@
 #ifndef __COMMAND_CPP__
+
 #define __COMMAND_CPP__
 #include "command.h"
 #include "base.h"
@@ -12,7 +13,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <sys/stat.h>
-
+#include <fcntl.h>
 Command::Command(string input){
 	in = input;
 }
@@ -53,7 +54,7 @@ char * Command::parse(string input){
 }
 
 void Command::evaluate(){
-    
+    bool success;
     char *command[64];
     string input = in;
     if(input == "exit"){
@@ -64,7 +65,7 @@ void Command::evaluate(){
     //cout << "command is: ";
     int w = 0;
     while (token != NULL){
-        //cout << token << " ";
+        cout << token << " ";
         command[w] = token;
         token = strtok(NULL, " ");
         w++;
@@ -77,22 +78,36 @@ void Command::evaluate(){
     cout << endl;*/
     
     int status;
-    pid_t pid;
-    
-    if((pid = fork()) < 0){
-     	cout << "forking failed" << endl;
-	exit(0);   
+    pid_t pid = -1;
+    pid = fork();
+    if(pid == 0){
+        comm = command[0];
+        execvp(command[0], command);
+	int errorC = errno;
+    	cout << comm << ":command is invalid" << endl;
+    	exit(errorC);
+    	exit(EXIT_SUCCESS);
     }
-    else if(pid = 0){
-	if(execvp(*command, command) < 0){
-                    cout << "command failed" << endl;
-                    exit(1);
-        }
-    }else{
-	while (wait(&status) != pid);
+    else if(pid > 0){
+	if((pid = wait(&status)) == -1){
+		perror("wait error");
+	}
+	else{
+		//worked
+		if((WIFEXITED(status)) && (WEXITSTATUS(status) == 0)){
+			success = true;
+		}
+		else{
+			success = false;
+		} 
+	}
     }
-	
-	return;  
+    else{
+	perror("fork failed");
+	cout << "Fork() did not run" << endl;
+	exit(EXIT_FAILURE);
+    }
+return;  
 }
 
 bool Command::filePath(const char* path, char flg){
@@ -154,6 +169,59 @@ bool Command::filePath(const char* path, char flg){
 	else{
 		cout << "use -e functionaliy" << endl;
 		return false;
+	}
+}
+
+Pipe::Pipe():Base(){}
+
+Pipe::Pipe(string left, string right){
+	l = left;
+	r = right;
+}
+
+void Pipe::evaluate(){
+	int pipefd[2];
+	pipe(pipefd);
+	int saveStdin;
+	int saveStdout;
+
+	int pid = -1;
+	pid = fork();
+	int returnStat;
+	//cout << "reached if";
+	if(pid == 0){
+		cout << "reached pid" << endl;
+		saveStdout = dup(1);
+		dup2(pipefd[1], 1);
+		close(pipefd[0]);
+		
+		dup2(saveStdout, 1);
+		int errCode = errno;
+		exit(errCode);
+		exit(EXIT_SUCCESS);		
+	}
+	else if(pid > 0){
+		if((pid= wait(&returnStat)) == -1){
+			perror("error");
+		}
+		else{
+			if((WIFEXITED(returnStat)) && WEXITSTATUS(returnStat) == 0){
+				saveStdin = dup(0);
+				dup2(pipefd[0], 0);
+				close(pipefd[1]);
+			
+				dup2(saveStdin, 0);
+			}
+			else{
+				perror("failed");
+			}
+		}
+	
+	}
+	else{
+		perror("failed fork");
+		cout << "failed fork" << endl;
+		exit(EXIT_FAILURE);
 	}
 }
 #endif
