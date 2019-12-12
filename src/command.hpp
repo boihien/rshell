@@ -40,15 +40,15 @@ class Command: public Base{
             }else{
                 for(i = 0; i < input.size(); i++){
                     if(input.at(i) == ';'){
-                            
+                        
                         break;
                     }
                     if(input.at(i) == '|' && input.at(i+1) == '|'){
-                            
+                        
                         break;
                     }
                     if(input.at(i) == '&' && input.at(i+1) == '&'){
-                            
+                        
                         break;
                     }
                     if(input.at(i) == '#'){
@@ -197,4 +197,3 @@ class Command: public Base{
 };
 
 #endif
-

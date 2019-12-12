@@ -7,6 +7,7 @@ using namespace std;
 
 class Base{
     public:
+        char argm[64];
         string executable;
         Base(){ };
         virtual void evaluate() = 0;
@@ -16,4 +17,3 @@ class Base{
 };
 
 #endif
-
