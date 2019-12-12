@@ -29,4 +29,16 @@ class Pipe: public Base{
 		void evaluate();
 };
 
+class Redirect: public Base{
+	protected:
+		string l;
+		string r;
+		char* argmL[1024];
+		char* argmR[1024];
+	public:
+		Redirect();
+		Redirect(string left, string right);
+		void evaluate();
+};
+
 #endif

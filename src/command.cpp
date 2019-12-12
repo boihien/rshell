@@ -224,4 +224,23 @@ void Pipe::evaluate(){
 		exit(EXIT_FAILURE);
 	}
 }
+Redirect::Redirect():Base(){}
+
+Redirect::Redirect(string left, string right){
+	l = left;
+	r = right;
+}
+
+void Redirect::evaluate(){
+	int pid = -1;
+	int w = r.length();
+	char* str = new char[w + 1];
+	int saveStd;
+	strcpy(str, r.c_str());
+	pid = fork();
+	int returnStat;
+	if(pid == 0){
+		saveStd = dup(1);
+	}
+}
 #endif

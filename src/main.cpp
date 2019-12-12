@@ -25,6 +25,8 @@ int main(){
 	
 	Pipe* p = new Pipe(input, input);
 	//p->evaluate();
+	Redirect* r = new Redirect(input, input);
+	r->evaluate();
         
     }
     
