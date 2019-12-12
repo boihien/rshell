@@ -61,6 +61,15 @@ cat < existingFile | tr A-Z a-z | tee newOutput | tr a=z A-Z > newOutput
 ```
 will execute the ```cat``` command with the ```existingFile``` as the stdin. It will then pope the contents to the ```tr``` command and convert all the characters to lowercase. It then pipes to ```tee``` and stores the file in ```newOuput```, passing it along to ```tr```. Finally, the text is converted to all caps and is stored in the file ```newOutput```. 
 
+Redirect Class - There will also be a redirect class with symbols
+```<``` which is the input redirection that redirects stdin to the file
+```>``` is the output redirection that stdout will write to a file or create a file for it
+```>>``` is the output redirection that adds redirects a stdout to the end of a command and create a file for it
+For example, the command
+```
+echo "(echo X && echo Y) || (echo Z && echo S) >> outputfile1.txt" | bin/memoryleak
+```
+will execute the command ```echo``` to print to the file ```X``` and ```Y```. Then it will redirect the stdout to ```outputfile1.txt```
 # Prototype/Research
 
 **Notes**
