@@ -18,13 +18,14 @@ The commands can be seperated by ```&&```, ```||```, and ```;``` where the comma
 || - the first one failed
 ; - is always executed 
 ```
-Ther user should be able to use the test command and run -e (to check if file/directory exists) -f ( to check if it exists and is regular) and -d (to check if it exists and is a directory).
+The user should be able to use the test command and run 
+```
+-e (to check if file/directory exists) 
+-f ( to check if it exists and is regular) 
+-d (to check if it exists and is a directory).
 ```
 The test command should also work symbollically with brackets [   ] and return true and false for commands.
-```
 Additionally, there should be precedence in commands with () when executing with the connectors.
-```
-
 We will be using the composite pattern where there is a base class, a composite class, and a leaf class. The composite class will consist of the various commands and the leaf class will contain the characters that connect the commands together. 
 
 # Diagram
@@ -53,6 +54,12 @@ B
 
 Connector Class - The connector class will include the specific connector's constructor. For example, the AND class will contain the And(Base*, Base*){} constructor along with a function that evaluates the connector's task. It will contain private variables like Base* left and Base* right so that the tree can identify what the commands on the left and right of the connector are. The child classes for the connector are the AND, OR, and SemiColon classes. If the user enters && with another command, the second command will execute only if the first one was successfull. If the user enters || along with another command, the second command will execute even if the first one failed. Finally, if the character ';' is typed after a command, the command will always execute. 
 
+Pipe Class - There will be a pipe class where the character ```|``` can be used with the commands to redirect. It sends the output of one command to another command for further processing. For example, the command
+
+```
+cat < existingFile | tr A-Z a-z | tee newOutput | tr a=z A-Z > newOutput
+```
+will execute the ```cat``` command with the ```existingFile``` as the stdin. It will then pope the contents to the ```tr``` command and convert all the characters to lowercase. It then pipes to ```tee``` and stores the file in ```newOuput```, passing it along to ```tr```. Finally, the text is converted to all caps and is stored in the file ```newOutput```. 
 
 # Prototype/Research
 
