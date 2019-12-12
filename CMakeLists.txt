@@ -6,11 +6,11 @@ SET(CMAKE_CXX_STANDARD 11)
 
 
 ADD_EXECUTABLE(rshell
-	src/main.cpp src/command.cpp
+	src/main.cpp src/command.hpp
 )
 
 ADD_EXECUTABLE(test
-   	unit_tests/unit_test.cpp src/command.cpp
+   	unit_tests/unit_test.cpp src/command.hpp
 )
 
 TARGET_LINK_LIBRARIES(test gtest)

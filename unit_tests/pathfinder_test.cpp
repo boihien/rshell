@@ -1,7 +1,7 @@
 #ifndef __PATHFINDER_TEST_CPP
 #define __PATHFINDER_TEST_CPP
 #include "gtest/gtest.h"
-#include "../src/command.h"
+#include "../src/command.hpp"
 
 TEST(PathFinder, testsPath){
 	string input;
