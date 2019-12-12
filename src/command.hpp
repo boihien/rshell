@@ -15,6 +15,7 @@ using namespace std;
 #include <stdio.h>
 #include <string.h>
 #include <sys/stat.h>
+#include <fcntl.h>
 
 class Command: public Base{
     private:
@@ -66,31 +67,70 @@ class Command: public Base{
             }
             char *inputarr = parse(input);
             char *token = strtok(inputarr, " ");
-            cout << "command is: ";
             int w = 0;
             while (token != NULL){
-                cout << token << " ";
                 command[w] = token;
                 token = strtok(NULL, " ");
                 w++;
             }
             command[w] = nullptr;
             cout << endl;
-            cout << endl;
+            
             pid_t pid;
             int status;
-
             if((pid = fork()) < 0){
                 cout << "forking failed" << endl;
                 exit(0);
             }
             if(pid == 0){
+                int i = 0;
+                int io = 0;
+                char in[64];
+                char out[64];
+
+                for(i = 0; command[i] != NULL; i++){
+                    if(strcmp(command[i], "<") == 0){
+                        command[i] = NULL;
+                        strcpy(in, command[i+1]++);
+                        io = 3;
+                    }
+
+                    if(strcmp(command[i], ">") == 0){
+                        command[i] = NULL;
+                        strcpy(out, command[i+1]++);
+                        io = 2;
+                    }
+                }
+                if(io == 3){
+                    int fd0;
+                    if ((fd0 = open(in, O_RDONLY, 0)) < 0) {
+                        perror("cant open in");
+                        exit(1);
+                    }
+                    
+                    dup2(fd0, 0);
+                    close(fd0);
+                }
+                if(io == 2){
+
+                    int fd1;
+                    if ((fd1 = creat(out , 0644)) < 0) {
+                        perror("cant open out");
+                        exit(1);
+                    }
+
+                    dup2(fd1, STDOUT_FILENO);
+                    close(fd1);
+                }
                 if(execvp(command[0], command) < 0){
                     perror("execvp of ls failed");
                     exit(1);
                 }
+                
             }else{
+                
                 while (wait(&status) != pid);
+                
             }
             return;
         }
@@ -157,3 +197,4 @@ class Command: public Base{
 };
 
 #endif
+

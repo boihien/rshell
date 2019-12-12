@@ -2,8 +2,8 @@
 using namespace std;
 #include <iostream>
 #include <stdio.h>
-#include "base.h"
-#include "command.h"
+#include "base.hpp"
+#include "command.hpp"
 #include <string.h>
 #include <stdlib.h>
 
