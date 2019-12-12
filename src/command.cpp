@@ -53,7 +53,7 @@ char * Command::parse(string input){
 }
 
 void Command::evaluate(){
-    bool success;
+    
     char *command[64];
     string input = in;
     if(input == "exit"){
@@ -64,7 +64,7 @@ void Command::evaluate(){
     //cout << "command is: ";
     int w = 0;
     while (token != NULL){
-        cout << token << " ";
+        //cout << token << " ";
         command[w] = token;
         token = strtok(NULL, " ");
         w++;
@@ -77,35 +77,22 @@ void Command::evaluate(){
     cout << endl;*/
     
     int status;
-    pid_t pid = -1;
-    pid = fork();
-    if(pid == 0){
-        comm = command[0];
-        execvp(command[0], command);
-	int errorC = errno;
-    	cout << comm << ":command is invalid" << endl;
-    	exit(errorC);
-    	exit(EXIT_SUCCESS);
+    pid_t pid;
+    
+    if((pid = fork()) < 0){
+     	cout << "forking failed" << endl;
+	exit(0);   
     }
-    else if(pid > 0){
-	if((pid = wait(&status)) == -1){
-		perror("wait error");
-	}
-	else{
-		//worked
-		if((WIFEXITED(status)) && (WEXITSTATUS(status) == 0)){
-			success = true;
-		}
-		else{
-			success = false;
-		} 
-	}
+    else if(pid = 0){
+	if(execvp(*command, command) < 0){
+                    cout << "command failed" << endl;
+                    exit(1);
+        }
+    }else{
+	while (wait(&status) != pid);
     }
-    else{
-	perror("fork failed");
-	cout << "Fork() did not run" << endl;
-	exit(EXIT_FAILURE);
-    }  
+	
+	return;  
 }
 
 bool Command::filePath(const char* path, char flg){
