@@ -1,11 +1,3 @@
-# CS 100 Programming Project
-
-Fall Quarter 2019
-
-Boi-Hien Huang, 862012798
-
-Raajitha Rajkumar, 862015848
-
 # Introduction
 The goal of our project is to develop a command shell that
 1. prints a command prompt **$**
